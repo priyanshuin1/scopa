@@ -15,6 +15,10 @@ var rtsIndex = require('./routes/users');
 
 var app = express();
 
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -30,6 +34,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 var rtsIndex=require('./routes/users');
 
 app.use(passport.initialize());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use('/api', rtsIndex);
 
 // catch 404 and forward to error handler
